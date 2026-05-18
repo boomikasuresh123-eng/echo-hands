@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MULTISENSE GLOVE - Smart Assistive Communication System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon"><i class="fas fa-hand-sparkles"></i></div>
+          <span class="logo-text">MULTISENSE</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-section="dashboard"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+        <a href="#monitoring" class="nav-item" data-section="monitoring"><i class="fas fa-heartbeat"></i><span>Monitoring</span></a>
+        <a href="#voice" class="nav-item" data-section="voice"><i class="fas fa-volume-up"></i><span>Voice Output</span></a>
+        <a href="#alerts" class="nav-item" data-section="alerts"><i class="fas fa-bell"></i><span>Alerts</span><span class="badge">1</span></a>
+        <a href="#history" class="nav-item" data-section="history"><i class="fas fa-history"></i><span>History</span></a>
+        <a href="#settings" class="nav-item" data-section="settings"><i class="fas fa-cog"></i><span>Settings</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="connection-status">
+          <div class="status-dot" id="sidebarStatus"></div>
+          <span id="sidebarStatusText">Disconnected</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="header-left">
+          <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+          <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="header-right">
+          <div class="header-status">
+            <span class="status-indicator"><i class="fas fa-wifi"></i><span id="wifiStatus">ESP32 Offline</span></span>
+          </div>
+          <button class="connect-btn" id="connectBtn"><i class="fas fa-plug"></i><span>Connect Device</span></button>
+          <div class="user-profile"><div class="avatar"><i class="fas fa-user"></i></div></div>
+        </div>
+      </header>
+
+      <section class="section active" id="dashboard">
+        <div class="hero-section">
+          <div class="hero-content">
+            <div class="hero-badge"><i class="fas fa-robot"></i><span>Assistive Technology</span></div>
+            <h2 class="hero-title">MULTISENSE GLOVE</h2>
+            <p class="hero-subtitle">Smart Assistive Communication System</p>
+            <p class="hero-description">A revolutionary gesture-based communication system that transforms hand movements into voice output, empowering individuals with speech and hearing impairments to communicate seamlessly through smart sensor technology.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg" id="heroConnectBtn"><i class="fas fa-link"></i>Connect Device</button>
+              <button class="btn btn-outline btn-lg"><i class="fas fa-play"></i>Watch Demo</button>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-item"><span class="stat-value" id="gestureCount">0</span><span class="stat-label">Gestures Detected</span></div>
+              <div class="stat-item"><span class="stat-value">98%</span><span class="stat-label">Accuracy Rate</span></div>
+              <div class="stat-item"><span class="stat-value">&lt;50ms</span><span class="stat-label">Response Time</span></div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="glove-illustration">
+              <div class="glove-glow"></div>
+              <div class="glove-icon"><i class="fas fa-hand-paper"></i></div>
+              <div class="sensor-dots">
+                <div class="sensor-dot sensor-1"></div>
+                <div class="sensor-dot sensor-2"></div>
+                <div class="sensor-dot sensor-3"></div>
+                <div class="sensor-dot sensor-4"></div>
+                <div class="sensor-dot sensor-5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workflow-section">
+          <h3 class="section-title">System Workflow</h3>
+          <div class="workflow-cards">
+            <div class="workflow-card">
+              <div class="workflow-icon gesture"><i class="fas fa-hand-point-up"></i></div>
+              <h4>Gesture Input</h4><p>Flex sensors detect hand movements</p>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="workflow-card">
+              <div class="workflow-icon processing"><i class="fas fa-microchip"></i></div>
+              <h4>ESP32 Processing</h4><p>Real-time data analysis & mapping</p>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="workflow-card">
+              <div class="workflow-icon dashboard"><i class="fas fa-laptop"></i></div>
+              <h4>Web Dashboard</h4><p>Live monitoring & visualization</p>
+            </div>
+            <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="workflow-card">
+              <div class="workflow-icon voice"><i class="fas fa-volume-up"></i></div>
+              <h4>Voice Output</h4><p>Text-to-speech communication</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card gesture-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-hand-sparkles"></i><h3>Gesture Detection</h3></div>
+              <span class="card-badge live">LIVE</span>
+            </div>
+            <div class="card-body">
+              <div class="gesture-display" id="gestureDisplay">
+                <div class="gesture-icon-large"><i class="fas fa-hand-paper"></i></div>
+                <div class="gesture-text" id="gestureText">Waiting for input...</div>
+              </div>
+              <div class="gesture-info">
+                <div class="info-item"><span class="info-label">Voice Output</span><span class="info-value" id="voiceOutput">--</span></div>
+                <div class="info-item"><span class="info-label">Confidence</span><span class="info-value" id="confidence">--</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card status-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-server"></i><h3>System Status</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="status-grid">
+                <div class="status-item">
+                  <div class="status-icon bluetooth"><i class="fab fa-bluetooth-b"></i></div>
+                  <div class="status-info"><span class="status-name">Bluetooth</span><span class="status-value" id="btStatus">Disconnected</span></div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon wifi"><i class="fas fa-wifi"></i></div>
+                  <div class="status-info"><span class="status-name">Wi-Fi</span><span class="status-value" id="wifiStatusCard">Offline</span></div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon battery"><i class="fas fa-battery-three-quarters"></i></div>
+                  <div class="status-info"><span class="status-name">Battery</span><span class="status-value" id="batteryLevel">--%</span></div>
+                  <div class="battery-bar"><div class="battery-fill" id="batteryFill"></div></div>
+                </div>
+                <div class="status-item">
+                  <div class="status-icon esp32"><i class="fas fa-microchip"></i></div>
+                  <div class="status-info"><span class="status-name">ESP32</span><span class="status-value" id="esp32Status">Not Connected</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card actions-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-bolt"></i><h3>Quick Actions</h3></div>
+            </div>
+            <div class="card-body">
+              <button class="quick-action-btn emergency" id="quickEmergency"><i class="fas fa-exclamation-triangle"></i><span>Emergency Alert</span></button>
+              <button class="quick-action-btn voice" id="quickVoice"><i class="fas fa-microphone"></i><span>Test Voice</span></button>
+              <button class="quick-action-btn calibrate" id="quickCalibrate"><i class="fas fa-sliders-h"></i><span>Calibrate</span></button>
+              <button class="quick-action-btn reconnect" id="quickReconnect"><i class="fas fa-sync-alt"></i><span>Reconnect</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="monitoring">
+        <div class="section-header"><h2>Live Monitoring</h2><p>Real-time sensor data and system visualization</p></div>
+        <div class="monitoring-grid">
+          <div class="card sensor-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-fingerprint"></i><h3>Finger Sensor Status</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="finger-sensors">
+                <div class="finger-item"><span class="finger-name">Thumb</span><div class="finger-bar"><div class="finger-fill" id="thumbFill" style="width:0%"></div></div><span class="finger-value" id="thumbValue">0</span></div>
+                <div class="finger-item"><span class="finger-name">Index</span><div class="finger-bar"><div class="finger-fill" id="indexFill" style="width:0%"></div></div><span class="finger-value" id="indexValue">0</span></div>
+                <div class="finger-item"><span class="finger-name">Middle</span><div class="finger-bar"><div class="finger-fill" id="middleFill" style="width:0%"></div></div><span class="finger-value" id="middleValue">0</span></div>
+                <div class="finger-item"><span class="finger-name">Ring</span><div class="finger-bar"><div class="finger-fill" id="ringFill" style="width:0%"></div></div><span class="finger-value" id="ringValue">0</span></div>
+                <div class="finger-item"><span class="finger-name">Pinky</span><div class="finger-bar"><div class="finger-fill" id="pinkyFill" style="width:0%"></div></div><span class="finger-value" id="pinkyValue">0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card graph-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-chart-line"></i><h3>Real-time Flex Sensor Graph</h3></div>
+              <div class="graph-legend">
+                <span class="legend-item"><span class="legend-dot blue"></span>Thumb</span>
+                <span class="legend-item"><span class="legend-dot cyan"></span>Index</span>
+                <span class="legend-item"><span class="legend-dot green"></span>Middle</span>
+              </div>
+            </div>
+            <div class="card-body"><canvas id="flexGraph" class="flex-graph"></canvas></div>
+          </div>
+
+          <div class="card transmission-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-exchange-alt"></i><h3>Data Transmission</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="transmission-visual">
+                <div class="transmission-node esp32-node"><i class="fas fa-microchip"></i><span>ESP32</span></div>
+                <div class="transmission-line" id="transmissionLine"><div class="data-packet"></div></div>
+                <div class="transmission-node web-node"><i class="fas fa-laptop"></i><span>Dashboard</span></div>
+              </div>
+              <div class="transmission-stats">
+                <div class="trans-stat"><span class="trans-label">Packets Sent</span><span class="trans-value" id="packetsSent">0</span></div>
+                <div class="trans-stat"><span class="trans-label">Latency</span><span class="trans-value" id="latency">--ms</span></div>
+                <div class="trans-stat"><span class="trans-label">Data Rate</span><span class="trans-value" id="dataRate">--kbps</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card oled-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-display"></i><h3>OLED Display Preview</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="oled-screen">
+                <div class="oled-content" id="oledContent">
+                  <div class="oled-title">MULTISENSE</div>
+                  <div class="oled-status">Ready</div>
+                  <div class="oled-gesture" id="oledGesture">--</div>
+                  <div class="oled-divider"></div>
+                  <div class="oled-battery"><i class="fas fa-battery-half"></i><span id="oledBattery">--%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card esp32-status-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-cogs"></i><h3>ESP32 System Status</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="esp32-metrics">
+                <div class="metric-item"><span class="metric-label">CPU Load</span><div class="metric-bar"><div class="metric-fill" id="cpuFill" style="width:0%"></div></div><span class="metric-value" id="cpuValue">0%</span></div>
+                <div class="metric-item"><span class="metric-label">Memory</span><div class="metric-bar"><div class="metric-fill" id="memFill" style="width:0%"></div></div><span class="metric-value" id="memValue">0%</span></div>
+                <div class="metric-item"><span class="metric-label">Uptime</span><span class="metric-value" id="uptime">00:00:00</span></div>
+                <div class="metric-item"><span class="metric-label">Signal</span><span class="metric-value" id="signalStrength">--dBm</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="voice">
+        <div class="section-header"><h2>Voice Communication</h2><p>Text-to-speech panel and voice output management</p></div>
+        <div class="voice-grid">
+          <div class="card tts-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-comment-dots"></i><h3>Text-to-Speech Panel</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="tts-display" id="ttsDisplay"><p id="ttsText">Connect device to begin voice communication...</p></div>
+              <div class="tts-controls">
+                <button class="btn btn-primary" id="playVoice"><i class="fas fa-play"></i>Play</button>
+                <button class="btn btn-outline" id="stopVoice"><i class="fas fa-stop"></i>Stop</button>
+                <button class="btn btn-outline" id="clearTts"><i class="fas fa-trash"></i>Clear</button>
+              </div>
+              <div class="tts-settings">
+                <div class="tts-setting"><label>Speed</label><input type="range" min="0.5" max="2" step="0.1" value="1" id="ttsSpeed"><span id="ttsSpeedValue">1.0x</span></div>
+                <div class="tts-setting"><label>Pitch</label><input type="range" min="0.5" max="2" step="0.1" value="1" id="ttsPitch"><span id="ttsPitchValue">1.0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card speaker-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-volume-up"></i><h3>Speaker Status</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="speaker-visual">
+                <div class="speaker-icon"><i class="fas fa-volume-up"></i></div>
+                <div class="speaker-status" id="speakerStatus"><span class="status-text">Not Connected</span></div>
+              </div>
+              <button class="btn btn-outline full-width" id="connectSpeaker"><i class="fab fa-bluetooth-b"></i>Connect Bluetooth Speaker</button>
+              <div class="volume-control"><label>Volume</label><input type="range" min="0" max="100" value="75" id="volumeSlider"><span id="volumeValue">75%</span></div>
+            </div>
+          </div>
+
+          <div class="card messages-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-comments"></i><h3>Recent Messages</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="message-list" id="messageList">
+                <div class="message-empty"><i class="fas fa-inbox"></i><p>No messages yet</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="alerts">
+        <div class="section-header"><h2>Emergency Alerts</h2><p>Emergency communication and buzzer control</p></div>
+        <div class="alerts-grid">
+          <div class="card emergency-card">
+            <div class="card-header emergency-header">
+              <div class="card-title"><i class="fas fa-exclamation-circle"></i><h3>Emergency Alert System</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="emergency-visual">
+                <div class="emergency-icon-pulse" id="emergencyIcon"><i class="fas fa-bell"></i></div>
+                <p class="emergency-text">Press to send emergency alert to all connected devices</p>
+              </div>
+              <button class="btn btn-emergency btn-lg full-width" id="sendEmergency"><i class="fas fa-paper-plane"></i>Send Emergency Alert</button>
+            </div>
+          </div>
+
+          <div class="card buzzer-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-volume-up"></i><h3>Buzzer Status</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="buzzer-visual">
+                <div class="buzzer-indicator" id="buzzerIndicator"><i class="fas fa-bell"></i></div>
+                <span class="buzzer-status" id="buzzerStatus">Inactive</span>
+              </div>
+              <div class="buzzer-controls">
+                <button class="btn btn-outline" id="testBuzzer"><i class="fas fa-play"></i>Test Buzzer</button>
+                <button class="btn btn-outline" id="stopBuzzer"><i class="fas fa-stop"></i>Stop</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card workflow-alert-card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-project-diagram"></i><h3>Emergency Communication Workflow</h3></div>
+            </div>
+            <div class="card-body">
+              <div class="emergency-steps">
+                <div class="step active"><div class="step-number">1</div><div class="step-content"><h4>Gesture Detected</h4><p>Emergency gesture recognized</p></div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content"><h4>ESP32 Processes</h4><p>Alert signal generated</p></div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content"><h4>Dashboard Notified</h4><p>Visual alert triggered</p></div></div>
+                <div class="step"><div class="step-number">4</div><div class="step-content"><h4>Buzzer Activated</h4><p>Audible warning sent</p></div></div>
+                <div class="step"><div class="step-number">5</div><div class="step-content"><h4>Help Alerted</h4><p>Emergency contacts notified</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="history">
+        <div class="section-header"><h2>Gesture History</h2><p>Timeline of detected gestures and communication logs</p></div>
+        <div class="history-controls">
+          <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search gestures..." id="searchHistory"></div>
+          <div class="filter-dropdown">
+            <select id="filterHistory">
+              <option value="all">All Gestures</option>
+              <option value="hello">Hello</option>
+              <option value="help">Help</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              <option value="thankyou">Thank You</option>
+              <option value="emergency">Emergency</option>
+            </select>
+          </div>
+          <button class="btn btn-outline" id="clearHistory"><i class="fas fa-trash"></i>Clear History</button>
+        </div>
+        <div class="card history-card">
+          <div class="card-body">
+            <div class="timeline" id="timeline">
+              <div class="timeline-empty"><i class="fas fa-history"></i><p>No gesture history yet. Connect device to start recording.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="settings">
+        <div class="section-header"><h2>Settings</h2><p>Configure your Multisense Glove system</p></div>
+        <div class="settings-grid">
+          <div class="card settings-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-language"></i><h3>Language</h3></div></div>
+            <div class="card-body">
+              <div class="setting-item"><label>Voice Output Language</label>
+                <select id="languageSelect">
+                  <option value="en">English</option><option value="hi">Hindi</option><option value="es">Spanish</option>
+                  <option value="fr">French</option><option value="de">German</option><option value="ta">Tamil</option><option value="te">Telugu</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card settings-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-sliders-h"></i><h3>Sensor Calibration</h3></div></div>
+            <div class="card-body">
+              <div class="setting-item"><label>Thumb Sensor Threshold</label><input type="range" min="0" max="1023" value="512" id="thumbThreshold"><span id="thumbThresholdValue">512</span></div>
+              <div class="setting-item"><label>Index Sensor Threshold</label><input type="range" min="0" max="1023" value="512" id="indexThreshold"><span id="indexThresholdValue">512</span></div>
+              <div class="setting-item"><label>Middle Sensor Threshold</label><input type="range" min="0" max="1023" value="512" id="middleThreshold"><span id="middleThresholdValue">512</span></div>
+              <button class="btn btn-primary" id="calibrateSensors"><i class="fas fa-magic"></i>Auto Calibrate</button>
+            </div>
+          </div>
+
+          <div class="card settings-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-bell"></i><h3>Notifications</h3></div></div>
+            <div class="card-body">
+              <div class="toggle-setting"><span>Gesture Detection Alerts</span><label class="toggle"><input type="checkbox" checked id="gestureAlerts"><span class="toggle-slider"></span></label></div>
+              <div class="toggle-setting"><span>Emergency Alerts</span><label class="toggle"><input type="checkbox" checked id="emergencyAlerts"><span class="toggle-slider"></span></label></div>
+              <div class="toggle-setting"><span>Connection Notifications</span><label class="toggle"><input type="checkbox" checked id="connectionAlerts"><span class="toggle-slider"></span></label></div>
+              <div class="toggle-setting"><span>Sound Effects</span><label class="toggle"><input type="checkbox" id="soundEffects"><span class="toggle-slider"></span></label></div>
+            </div>
+          </div>
+
+          <div class="card settings-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-microphone"></i><h3>Voice Settings</h3></div></div>
+            <div class="card-body">
+              <div class="setting-item"><label>Default Voice</label><select id="voiceSelect"><option value="default">Default</option><option value="male">Male</option><option value="female">Female</option></select></div>
+              <div class="setting-item"><label>Speech Rate</label><input type="range" min="0.5" max="2" step="0.1" value="1" id="speechRate"><span id="speechRateValue">1.0x</span></div>
+              <div class="setting-item"><label>Volume</label><input type="range" min="0" max="100" value="80" id="voiceVolume"><span id="voiceVolumeValue">80%</span></div>
+            </div>
+          </div>
+
+          <div class="card settings-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-plug"></i><h3>Device</h3></div></div>
+            <div class="card-body">
+              <button class="btn btn-outline full-width" id="reconnectDevice"><i class="fas fa-sync-alt"></i>Reconnect Device</button>
+              <button class="btn btn-outline full-width" id="disconnectDevice"><i class="fas fa-unlink"></i>Disconnect</button>
+              <div class="device-info">
+                <div class="info-row"><span>Device Name</span><span id="deviceName">ESP32-Multisense</span></div>
+                <div class="info-row"><span>Firmware</span><span>v2.1.0</span></div>
+                <div class="info-row"><span>MAC Address</span><span id="macAddress">--:--:--:--:--:--</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="emergencyModal">
+    <div class="modal-content">
+      <div class="modal-header emergency-modal-header">
+        <h3><i class="fas fa-exclamation-triangle"></i> Emergency Alert</h3>
+        <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to send an emergency alert? This will notify all connected devices and activate the buzzer.</p>
+        <div class="modal-actions">
+          <button class="btn btn-outline" id="cancelEmergency">Cancel</button>
+          <button class="btn btn-emergency" id="confirmEmergency"><i class="fas fa-paper-plane"></i>Send Alert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
