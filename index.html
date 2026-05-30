@@ -67,6 +67,40 @@
               <div class="stat-item"><span class="stat-value">&lt;50ms</span><span class="stat-label">Response Time</span></div>
             </div>
           </div>
+          <div class="sensor-box">
+    <h3>Thumb</h3>
+    <p id="thumb">0</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Index</h3>
+    <p id="index">0</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Middle</h3>
+    <p id="middle">0</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Ring</h3>
+    <p id="ring">0</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Little</h3>
+    <p id="little">0</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Detected Text</h3>
+    <p id="text">---</p>
+</div>
+
+<div class="sensor-box">
+    <h3>Battery %</h3>
+    <p id="battery">0%</p>
+</div>
           <div class="hero-visual">
             <div class="glove-illustration">
               <div class="glove-glow"></div>
@@ -448,5 +482,60 @@
   </div>
 <script type="module" src="firebase.js"></script>
 <script src="script.js"></script>
+  <script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  onValue
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+
+  databaseURL:
+  "https://multisense-glove-default-rtdb.firebaseio.com/"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+const gloveRef = ref(db, "glove");
+
+onValue(gloveRef, (snapshot) => {
+
+  const data = snapshot.val();
+
+  if (!data) return;
+
+  document.getElementById("thumb").innerHTML =
+  data.thumb || 0;
+
+  document.getElementById("index").innerHTML =
+  data.index || 0;
+
+  document.getElementById("middle").innerHTML =
+  data.middle || 0;
+
+  document.getElementById("ring").innerHTML =
+  data.ring || 0;
+
+  document.getElementById("little").innerHTML =
+  data.little || 0;
+
+  document.getElementById("battery").innerHTML =
+  (data.battery || 0) + "%";
+
+  document.getElementById("text").innerHTML =
+  data.text || "---";
+
+});
+
+</script>
 </body>
 </html>
